@@ -1,31 +1,18 @@
 "use client";
 
+import { CMSIcon } from "@/app/cms-icon";
 import { Button } from "@/app/components/button";
 import { TechBadge } from "@/app/components/tech-badge";
+import { HomePageInfo } from "@/app/types/page-info";
+import { RichText } from "@graphcms/rich-text-react-renderer";
 import Image from "next/image";
 import { HiArrowNarrowRight } from "react-icons/hi";
-import {
-  TbBrandGithub,
-  TbBrandLinkedin,
-  TbBrandWhatsapp,
-} from "react-icons/tb";
 
-const MOCK_CONTACTS = [
-  {
-    url: "https://github.com/pedrohenriquebarrosn",
-    icon: <TbBrandGithub />,
-  },
-  {
-    url: "https://www.linkedin.com/in/pedro-henrique-barros-nascimento-2bb684251/n",
-    icon: <TbBrandLinkedin />,
-  },
-  {
-    url: "https://wa.me/5581979147661?text=Ol%C3%A1,%20Pedro!",
-    icon: <TbBrandWhatsapp />,
-  },
-];
+type HomeSectionProps = {
+  homeInfo: HomePageInfo;
+};
 
-export const HeroSection = () => {
+export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
   const handleContact = () => {
     const contactSection = document.querySelector("#contact");
     if (contactSection) {
@@ -40,15 +27,12 @@ export const HeroSection = () => {
           <h2 className="text-4xl font-medium mt-2">Pedro Henrique</h2>
 
           <p className="text-gray-400 my-6 text-sm sm:text-base">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta sunt
-            esse aliquid inventore minima maxime quis aliquam consequuntur
-            itaque totam? In quaerat officiis, consequatur nam tempora odit
-            cupiditate reiciendis expedita.
+            <RichText content={homeInfo.introduction.raw} />
           </p>
 
           <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
-            {Array.from({ length: 8 }).map((_, index) => (
-              <TechBadge name="Next.js" />
+            {homeInfo.technologies.map((tech) => (
+              <TechBadge name={tech.name} />
             ))}
           </div>
 
@@ -59,14 +43,14 @@ export const HeroSection = () => {
             </Button>
 
             <div className="text-2xl text-gray-600 flex items-center h-20 gap-3">
-              {MOCK_CONTACTS.map((contact, index) => (
+              {homeInfo.socials.map((contact, index) => (
                 <a
                   href={contact.url}
                   key={`contact ${index}`}
                   target="_blank"
                   className="hover:text-gray-100 transition-colors"
                 >
-                  {contact.icon}
+                  <CMSIcon icon={contact.iconSvg} />
                 </a>
               ))}
             </div>
@@ -74,11 +58,11 @@ export const HeroSection = () => {
         </div>
 
         <Image
+          className="w-[300px] h-[300px] lg:w-[420px] lg:h-[404px] mb-6 lg:mb-0 shadow-2xl rounded-lg object-cover"
           width={420}
           height={404}
-          src="/images/profile-pic.png"
-          alt="Foto de perfil"
-          className="w-[300px] h-[300px] lg:w-[420px] lg:h-[404px] mb-6 lg:mb-0 shadow-2xl rounded-lg object-cover"
+          src={homeInfo.profilePicture.url}
+          alt="Foto de perfil do Gabriel Borges"
         />
       </div>
     </section>

@@ -1,26 +1,22 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { ProjectSection } from "@/app/types/projects";
+import { fadeUpAnimation } from "@/app/lib/animations";
 
-const sections = [
-  {
-    title: "Login",
-    image: "https://media.graphassets.com/mYImcL1BRr6AhUeU0kEg",
-  },
-  {
-    title: "Home",
-    image: "https://media.graphassets.com/eslYQMyhQ6qI9Y37PTei",
-  },
-];
+type ProjectSectionsProps = {
+  sections: ProjectSection[];
+};
 
-export const ProjectSections = () => {
+export const ProjectSections = ({ sections }: ProjectSectionsProps) => {
   return (
     <section className="container my-12 md:my-32 flex flex-col gap-8 md:gap-32">
       {sections.map((section) => (
         <motion.div
           key={section.title}
           className="flex flex-col items-center gap-6 md:gap-12"
+          {...fadeUpAnimation}
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-2xl md:text-3xl font-medium text-gray-300">
@@ -31,7 +27,7 @@ export const ProjectSections = () => {
             height={672}
             className="w-full aspect-auto rounded-lg object-cover"
             alt={`Imagem da sessão ${section.title}`}
-            src={section.image}
+            src={section.image.url}
             unoptimized
           />
         </motion.div>

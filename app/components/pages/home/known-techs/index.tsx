@@ -1,9 +1,9 @@
 "use client";
 
 import { SectionTitle } from "@/app/components/section-title";
-import { KnownTech } from "./know-tech";
 import { motion } from "framer-motion";
 import { KnownTech as IKnownTech } from "@/app/types/projects";
+import { KnownTech } from "./know-tech";
 
 type KnownTechsProps = {
   techs: IKnownTech[];

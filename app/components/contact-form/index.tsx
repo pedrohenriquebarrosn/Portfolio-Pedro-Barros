@@ -1,11 +1,15 @@
 "use client";
 
-import { HiArrowNarrowRight } from "react-icons/hi";
-import { Button } from "../button";
-import { SectionTitle } from "../section-title";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { SectionTitle } from "../section-title";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "../button";
+import { HiArrowNarrowRight } from "react-icons/hi";
+import { motion } from "framer-motion";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { fadeUpAnimation } from "@/app/lib/animations";
 
 const contactFormSchema = z.object({
   name: z.string().min(3).max(100),
@@ -26,7 +30,13 @@ export const ContactForm = () => {
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    console.log(data);
+    try {
+      await axios.post("/api/contact", data);
+      toast.success("Mensagem enviada com sucesso!");
+      reset();
+    } catch (error) {
+      toast.error("Ocorreu um erro ao enviar a mensagem. Tente novamente.");
+    }
   };
 
   return (
@@ -40,9 +50,10 @@ export const ContactForm = () => {
           title="Vamos trabalhar juntos? Entre em contato"
           className="items-center text-center"
         />
-        <form
+        <motion.form
           className="mt-12 w-full flex flex-col gap-4"
           onSubmit={handleSubmit(onSubmit)}
+          {...fadeUpAnimation}
         >
           <input
             placeholder="Nome"
@@ -69,7 +80,7 @@ export const ContactForm = () => {
             </Button>
             <div className="absolute inset-0 bg-emerald-600 blur-2xl opacity-20" />
           </div>
-        </form>
+        </motion.form>
       </div>
     </section>
   );

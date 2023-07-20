@@ -86,7 +86,7 @@ export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
         </div>
 
         <p className="text-gray-400 text-sm mb-3 mt-6 font-semibold">
-          Competência
+          Competências
         </p>
         <div className="flex gap-x-2 gap-y-3 flex-wrap lg:max-w-[350px] mb-8">
           {technologies.map((tech, i) => (

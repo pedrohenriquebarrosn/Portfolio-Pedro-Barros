@@ -6,9 +6,9 @@ import Image from "next/image";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { motion } from "framer-motion";
 import { HomePageInfo } from "@/app/types/page-info";
+import { CMSIcon } from "@/app/components/cms-icon";
 import { RichText } from "@/app/components/rich-text";
 import { techBadgeAnimation } from "@/app/lib/animations";
-import { CMSIcon } from "@/app/cms-icon";
 
 type HeroSectionProps = {
   homeInfo: HomePageInfo;
